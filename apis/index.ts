@@ -77,8 +77,8 @@ export const getMeal = async (id: string) => {
 }
 
 /**
- * Get meals by category
- * @param
+ * Get meals by filter
+ * @param object filter params
  * @returns API data or error
  */
 export const getMealByFilter = async ({
