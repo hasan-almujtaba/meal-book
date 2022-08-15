@@ -1,4 +1,4 @@
-import { MealByFilterParams } from '@/types/meal'
+import { MealByFilterParams } from 'types/meal'
 import { useQuery } from 'react-query'
 import {
   getMeal,
