@@ -6,7 +6,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "format": "prettier --write **/*.{js,jsx,ts,tsx}"
+    "format": "prettier --write **/*.{js,jsx,ts,tsx}",
+    "postinstall": "husky install"
   },
   "dependencies": {
     "@mantine/core": "^4.2.9",
