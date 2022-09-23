@@ -1,15 +1,11 @@
 import { AppPropsWithLayout } from '../types/layout'
-import {
-  MantineProvider,
-  ColorSchemeProvider,
-  ColorScheme,
-} from '@mantine/core'
 import { useState } from 'react'
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
 import { ReactQueryDevtools } from 'react-query/devtools'
-import { useLocalStorage } from '@mantine/hooks'
-import { ModalsProvider } from '@mantine/modals'
-import { NotificationsProvider } from '@mantine/notifications'
+import { ChakraProvider } from '@chakra-ui/react'
+import theme from 'config/theme'
+import '@fontsource/poppins/400.css'
+import '@fontsource/poppins/700.css'
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   /**
@@ -23,40 +19,12 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
    */
   const getLayout = Component.getLayout ?? ((page) => page)
 
-  /**
-   * Set ui color scheme
-   * @see https://mantine.dev/theming/dark-theme/#save-to-localstorage-and-add-keyboard-shortcut
-   */
-  const [colorScheme, setColorScheme] = useLocalStorage<ColorScheme>({
-    key: 'mantine-color-scheme',
-    defaultValue: 'light',
-    getInitialValueInEffect: true,
-  })
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'))
-
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ColorSchemeProvider
-          colorScheme={colorScheme}
-          toggleColorScheme={toggleColorScheme}
-        >
-          <MantineProvider
-            withGlobalStyles
-            theme={{ colorScheme }}
-            withNormalizeCSS
-          >
-            <ModalsProvider>
-              <NotificationsProvider
-                position="top-right"
-                zIndex={2077}
-              >
-                {getLayout(<Component {...pageProps} />)}
-              </NotificationsProvider>
-            </ModalsProvider>
-          </MantineProvider>
-        </ColorSchemeProvider>
+        <ChakraProvider theme={theme}>
+          {getLayout(<Component {...pageProps} />)}
+        </ChakraProvider>
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>
