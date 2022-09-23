@@ -4,6 +4,9 @@ const nextConfig = {
   eslint: {
     dirs: ['apis', 'components', 'hooks', 'layouts', 'pages', 'store', 'types'],
   },
+  images: {
+    domains: ['www.themealdb.com'],
+  },
 }
 
 module.exports = nextConfig
