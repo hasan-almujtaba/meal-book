@@ -47,7 +47,7 @@ const CategoryList = () => {
         {[...Array(12)].map((_, index) => (
           <Box key={index}>
             <Skeleton
-              height="300"
+              height="270"
               rounded="xl"
             ></Skeleton>
             <SkeletonText

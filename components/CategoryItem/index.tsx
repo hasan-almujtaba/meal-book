@@ -17,7 +17,7 @@ const CategoryItem = ({ title, thumbnail }: Props) => {
   const cardBg = useColorModeValue('red.500', 'red.200')
 
   return (
-    <LinkBox>
+    <LinkBox role="group">
       <GridItem w="full">
         <Box
           bg={cardBg}
@@ -31,9 +31,17 @@ const CategoryItem = ({ title, thumbnail }: Props) => {
             width="250"
             height="250"
             layout="responsive"
+            objectFit="contain"
+            priority
           />
         </Box>
-        <LinkOverlay href="/a">
+        <LinkOverlay
+          href={`/category/${title}`}
+          transition="color 0.15s ease"
+          _groupHover={{
+            color: 'red.500',
+          }}
+        >
           <Heading
             mt="2"
             as="h3"

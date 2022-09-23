@@ -1,5 +1,6 @@
 import { Box, Button, Heading, Text } from '@chakra-ui/react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 const Hero = () => {
   return (
@@ -30,7 +31,17 @@ const Hero = () => {
         textAlign="center"
         mt="4"
       >
-        <Button colorScheme="red">Random Recipe</Button>
+        <Link
+          href="/random"
+          passHref
+        >
+          <Button
+            as="a"
+            colorScheme="red"
+          >
+            Random Recipe
+          </Button>
+        </Link>
       </Box>
     </Box>
   )
