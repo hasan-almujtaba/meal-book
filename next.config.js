@@ -7,6 +7,9 @@ const nextConfig = {
   images: {
     domains: ['www.themealdb.com'],
   },
+  experimental: {
+    scrollRestoration: true,
+  },
 }
 
 module.exports = nextConfig
