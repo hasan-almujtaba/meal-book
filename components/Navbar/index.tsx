@@ -1,4 +1,5 @@
 import { Box, IconButton, useColorMode } from '@chakra-ui/react'
+import Link from 'next/link'
 import { HiSun, HiMoon } from 'react-icons/hi'
 
 const Navbar = () => {
@@ -14,12 +15,18 @@ const Navbar = () => {
       display="flex"
       justifyContent="space-between"
     >
-      <Box
-        fontSize={['lg', 'xl', '2xl']}
-        fontWeight="bold"
+      <Link
+        href="/"
+        passHref
       >
-        Meal Book
-      </Box>
+        <Box
+          fontSize={['lg', 'xl', '2xl']}
+          fontWeight="bold"
+          as="a"
+        >
+          Meal Book
+        </Box>
+      </Link>
 
       <IconButton
         colorScheme="red"
