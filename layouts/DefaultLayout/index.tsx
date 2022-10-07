@@ -10,6 +10,7 @@ const DefaultLayout = ({ children }: DefaultLayout) => {
     <ColorContext.Provider value={color}>
       <Container
         maxW={['100%', '640px', '768px', '1024px', '1280px', '1536px']}
+        paddingBottom="10"
       >
         <Navbar />
         {children}
