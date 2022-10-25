@@ -2,6 +2,7 @@ import { Box, Button, Heading, SimpleGrid } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { Meal } from 'types/meal'
+import { HiArrowLeft } from 'react-icons/hi'
 
 interface Props {
   meal: Meal
@@ -12,26 +13,10 @@ const MealDetail = ({ meal }: Props) => {
     <Box>
       <Heading
         textAlign={['center', 'left']}
-        marginBottom="2"
+        marginBottom="4"
       >
         {meal.strMeal}
       </Heading>
-
-      <Box textAlign={['center', 'left']}>
-        <Link
-          href={`/category/${meal.strCategory}`}
-          passHref
-        >
-          <Button
-            colorScheme="red"
-            variant="link"
-            as="a"
-            marginBottom="1"
-          >
-            Back to {meal.strCategory} Meal List
-          </Button>
-        </Link>
-      </Box>
 
       <Box
         display={'flex'}
@@ -90,6 +75,20 @@ const MealDetail = ({ meal }: Props) => {
 
         <Box lineHeight="tall">{meal.strInstructions}</Box>
       </Box>
+
+      <Link
+        href={`/category/${meal.strCategory}`}
+        passHref
+      >
+        <Button
+          colorScheme="red"
+          as="a"
+          marginY="5"
+          leftIcon={<HiArrowLeft />}
+        >
+          Back to {meal.strCategory} Meal List
+        </Button>
+      </Link>
     </Box>
   )
 }
