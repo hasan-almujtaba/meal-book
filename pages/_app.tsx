@@ -1,7 +1,11 @@
 import { AppPropsWithLayout } from '../types/layout'
 import { useState } from 'react'
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query'
-import { ReactQueryDevtools } from 'react-query/devtools'
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { ChakraProvider } from '@chakra-ui/react'
 import theme from 'config/theme'
 import '@fontsource/poppins/400.css'

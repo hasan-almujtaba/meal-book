@@ -1,21 +1,26 @@
 import { Box, Button, Heading, SimpleGrid } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { Meal } from 'types/meal'
 import { HiArrowLeft } from 'react-icons/hi'
+import { useRouter } from 'next/router'
+import { useGetMeal } from '@/hooks/fetch'
 
-interface Props {
-  meal: Meal
-}
+const MealDetail = () => {
+  const router = useRouter()
+  const slug = router.query.slug as string
+  const { data, isLoading, isError } = useGetMeal(slug)
 
-const MealDetail = ({ meal }: Props) => {
+  if (isLoading) return null
+
+  if (isError) return null
+
   return (
     <Box>
       <Heading
         textAlign={['center', 'left']}
         marginBottom="4"
       >
-        {meal.strMeal}
+        {data.strMeal}
       </Heading>
 
       <Box
@@ -29,8 +34,8 @@ const MealDetail = ({ meal }: Props) => {
           marginBottom={'5'}
         >
           <Image
-            alt={meal.strMeal}
-            src={meal.strMealThumb}
+            alt={data.strMeal}
+            src={data.strMealThumb}
             width="250"
             height="250"
             layout="responsive"
@@ -56,7 +61,7 @@ const MealDetail = ({ meal }: Props) => {
             columns={[1, 3]}
             spacing={[2, 5]}
           >
-            {meal.ingredients.map((item, index) => (
+            {data.ingredients.map((item, index) => (
               <Box key={index}>{item}</Box>
             ))}
           </SimpleGrid>
@@ -73,11 +78,11 @@ const MealDetail = ({ meal }: Props) => {
           Instruction
         </Heading>
 
-        <Box lineHeight="tall">{meal.strInstructions}</Box>
+        <Box lineHeight="tall">{data.strInstructions}</Box>
       </Box>
 
       <Link
-        href={`/category/${meal.strCategory}`}
+        href={`/category/${data.strCategory}`}
         passHref
       >
         <Button
@@ -86,7 +91,7 @@ const MealDetail = ({ meal }: Props) => {
           marginY="5"
           leftIcon={<HiArrowLeft />}
         >
-          Back to {meal.strCategory} Meal List
+          Back to {data.strCategory} Meal List
         </Button>
       </Link>
     </Box>

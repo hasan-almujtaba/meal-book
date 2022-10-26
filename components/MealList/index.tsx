@@ -1,9 +1,7 @@
 import { Box, Button, Heading } from '@chakra-ui/react'
-import { ColorContext } from 'contexts/ColorContext'
 import { useGetMealByFilter } from 'hooks/fetch'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useContext } from 'react'
 import CardGroup from '../CardGroup'
 import CardGroupSkeleton from '../CardGroupSkeleton'
 import CardItem from '../CardItem'
@@ -14,7 +12,6 @@ const MealList = () => {
     filter: 'c',
     value: query.category as string,
   })
-  const color = useContext(ColorContext)
 
   let content = <CardGroupSkeleton />
 
@@ -48,7 +45,7 @@ const MealList = () => {
           passHref
         >
           <Button
-            colorScheme={color.split('.')[0]}
+            colorScheme="red"
             variant="link"
             as="a"
           >

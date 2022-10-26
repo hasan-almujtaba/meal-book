@@ -6,7 +6,10 @@ import type { AppProps } from 'next/app'
  * Extend NextPage
  * See https://nextjs.org/docs/basic-features/layouts#with-typescript
  */
-export type NextPageWithLayout = NextPage & {
+export type NextPageWithLayout<P = Record<string, unknown>, IP = P> = NextPage<
+  P,
+  IP
+> & {
   getLayout?: (page: ReactElement) => ReactNode
 }
 

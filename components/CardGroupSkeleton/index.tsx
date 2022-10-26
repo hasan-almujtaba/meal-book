@@ -16,7 +16,7 @@ const CardGroupSkeleton = () => {
       {[...Array(12)].map((_, index) => (
         <Box key={index}>
           <Skeleton
-            height="270"
+            height="294"
             rounded="xl"
           ></Skeleton>
           <SkeletonText

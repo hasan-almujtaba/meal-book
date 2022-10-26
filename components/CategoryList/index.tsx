@@ -5,12 +5,15 @@ import CardGroupSkeleton from '../CardGroupSkeleton'
 import CardItem from '../CardItem'
 
 const CategoryList = () => {
-  const { data, isSuccess } = useGetMealCategories()
+  const { data, isLoading, isError } = useGetMealCategories()
 
-  let content = <CardGroupSkeleton />
+  if (isLoading) return <CardGroupSkeleton />
 
-  if (isSuccess)
-    content = (
+  if (isError) return null
+
+  return (
+    <Box py="20">
+      <Heading textAlign="center">Meal Categories</Heading>
       <CardGroup>
         {data.map((item, index) => (
           <CardItem
@@ -23,12 +26,6 @@ const CategoryList = () => {
           />
         ))}
       </CardGroup>
-    )
-
-  return (
-    <Box py="20">
-      <Heading textAlign="center">Meal Categories</Heading>
-      {content}
     </Box>
   )
 }

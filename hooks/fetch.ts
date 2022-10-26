@@ -1,5 +1,5 @@
 import { MealByFilterParams } from 'types/meal'
-import { useQuery } from 'react-query'
+import { useQuery } from '@tanstack/react-query'
 import {
   getMeal,
   getMealByFilter,
@@ -13,7 +13,7 @@ import { useFormatter } from './formatter'
  * @returns list of meal categories
  */
 export const useGetMealCategories = () => {
-  return useQuery('mealCategories', () => getMealCategories())
+  return useQuery(['mealCategories'], () => getMealCategories())
 }
 
 /**
@@ -23,7 +23,7 @@ export const useGetMealCategories = () => {
 export const useGetRandomMeal = () => {
   const { meal: mealFormatter } = useFormatter()
 
-  return useQuery('randomMeal', () => getRandomMeal(), {
+  return useQuery(['randomMeal'], () => getRandomMeal(), {
     select: (data) => data.map((meal) => mealFormatter(meal)),
   })
 }
