@@ -10,9 +10,13 @@ interface Props {
    * Data of meal fetched from api
    */
   meal: Meal | undefined
+  /**
+   * Check if provided meal data is random meal
+   */
+  isMealRandom?: boolean
 }
 
-const MealDetailData = ({ meal }: Props) => {
+const MealDetailData = ({ meal, isMealRandom }: Props) => {
   return (
     <>
       <Heading
@@ -90,7 +94,9 @@ const MealDetailData = ({ meal }: Props) => {
           marginY="5"
           leftIcon={<HiArrowLeft />}
         >
-          Back to {meal?.strCategory} Meal List
+          {isMealRandom
+            ? `See other ${meal?.strCategory}`
+            : `Back to ${meal?.strCategory} Meal List`}
         </Button>
       </Link>
     </>

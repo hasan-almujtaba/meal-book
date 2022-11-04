@@ -4,7 +4,11 @@ import { useGetMeal } from '@/hooks/fetch'
 import MealDetailSkeleton from '../MealDetailSkeleton'
 import MealDetailData from '../MealDetailData'
 
-const MealDetail = () => {
+interface Props {
+  mealId?: string
+}
+
+const MealDetail = ({ mealId }: Props) => {
   /**
    * Next router hooks
    */
@@ -19,7 +23,7 @@ const MealDetail = () => {
    * React query hook
    * Get meal detail based on active slug
    */
-  const { data, status } = useGetMeal(slug)
+  const { data, status } = useGetMeal(slug ?? mealId)
 
   /**
    * Content to render
@@ -27,7 +31,12 @@ const MealDetail = () => {
   const content = {
     loading: <MealDetailSkeleton />,
     error: null,
-    success: <MealDetailData meal={data} />,
+    success: (
+      <MealDetailData
+        meal={data}
+        isMealRandom={mealId !== undefined}
+      />
+    ),
   }
 
   return <Box>{content[status]}</Box>
