@@ -5,17 +5,20 @@ import CardGroupSkeleton from '../CardGroupSkeleton'
 import CardItem from '../CardItem'
 
 const CategoryList = () => {
-  const { data, isLoading, isError } = useGetMealCategories()
+  /**
+   * React query hooks
+   */
+  const { data, status } = useGetMealCategories()
 
-  if (isLoading) return <CardGroupSkeleton />
-
-  if (isError) return null
-
-  return (
-    <Box py="20">
-      <Heading textAlign="center">Meal Categories</Heading>
+  /**
+   * Content to render
+   */
+  const content = {
+    loading: <CardGroupSkeleton />,
+    error: null,
+    success: (
       <CardGroup>
-        {data.map((item, index) => (
+        {data?.map((item, index) => (
           <CardItem
             id={item.idCategory}
             identifier="title"
@@ -26,6 +29,13 @@ const CategoryList = () => {
           />
         ))}
       </CardGroup>
+    ),
+  }
+
+  return (
+    <Box py="20">
+      <Heading textAlign="center">Meal Categories</Heading>
+      {content[status]}
     </Box>
   )
 }

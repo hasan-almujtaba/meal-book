@@ -7,18 +7,28 @@ import CardGroupSkeleton from '../CardGroupSkeleton'
 import CardItem from '../CardItem'
 
 const MealList = () => {
+  /**
+   * Get query from next router
+   */
   const { query } = useRouter()
-  const { data, isSuccess } = useGetMealByFilter({
+
+  /**
+   * React query hooks
+   */
+  const { data, status } = useGetMealByFilter({
     filter: 'c',
     value: query.category as string,
   })
 
-  let content = <CardGroupSkeleton />
-
-  if (isSuccess)
-    content = (
+  /**
+   * Content to render
+   */
+  const content = {
+    loading: <CardGroupSkeleton />,
+    error: null,
+    success: (
       <CardGroup>
-        {data.map((item, index) => (
+        {data?.map((item, index) => (
           <CardItem
             link="meal"
             title={item.strMeal}
@@ -29,7 +39,8 @@ const MealList = () => {
           />
         ))}
       </CardGroup>
-    )
+    ),
+  }
 
   return (
     <Box py="20">
@@ -39,6 +50,7 @@ const MealList = () => {
       >
         {query.category}
       </Heading>
+
       <Box textAlign="center">
         <Link
           href="/"
@@ -53,7 +65,8 @@ const MealList = () => {
           </Button>
         </Link>
       </Box>
-      {content}
+
+      {content[status]}
     </Box>
   )
 }
