@@ -1,8 +1,6 @@
-import { Box, Heading } from '@chakra-ui/react'
 import { useGetMealCategories } from 'hooks/fetch'
-import CardGroup from '../CardGroup'
-import CardGroupSkeleton from '../CardGroupSkeleton'
-import CardItem from '../CardItem'
+import Item from '../Item'
+import SkeletonList from '../SkeletonList'
 
 const CategoryList = () => {
   /**
@@ -14,29 +12,27 @@ const CategoryList = () => {
    * Content to render
    */
   const content = {
-    loading: <CardGroupSkeleton />,
-    error: null,
+    loading: <SkeletonList />,
     success: (
-      <CardGroup>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {data?.map((item, index) => (
-          <CardItem
-            id={item.idCategory}
-            identifier="title"
-            link="category"
-            title={item.strCategory}
-            thumbnail={item.strCategoryThumb}
+          <Item
             key={index}
+            name={item.strCategory}
+            link={`/category/${item.strCategory}`}
+            image={item.strCategoryThumb}
           />
         ))}
-      </CardGroup>
+      </div>
     ),
+    error: null,
   }
 
   return (
-    <Box py="20">
-      <Heading textAlign="center">Meal Categories</Heading>
+    <div className="py-20">
+      <h2 className="font-bold text-center text-3xl mb-5">Meal Categories</h2>
       {content[status]}
-    </Box>
+    </div>
   )
 }
 

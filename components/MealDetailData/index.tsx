@@ -1,41 +1,26 @@
 import { Meal } from '@/types/meal'
-import { Box, Button, Heading, SimpleGrid } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 import { HiArrowLeft } from 'react-icons/hi'
+import Button from '../Base/Button'
 
 interface Props {
   /**
    * Data of meal fetched from api
    */
   meal: Meal | undefined
-  /**
-   * Check if provided meal data is random meal
-   */
-  isMealRandom?: boolean
 }
 
-const MealDetailData = ({ meal, isMealRandom }: Props) => {
+const MealDetailData = ({ meal }: Props) => {
   return (
     <>
-      <Heading
-        textAlign={['center', 'left']}
-        marginBottom="4"
-      >
+      <h1 className="text-center md:text-left mb-4 text-4xl font-bold">
         {meal?.strMeal}
-      </Heading>
+      </h1>
 
-      <Box
-        display={'flex'}
-        flexDirection={{ base: 'column', lg: 'row' }}
-      >
-        <Box
-          width={['full', '50%', 400]}
-          rounded="xl"
-          overflow="hidden"
-          marginBottom={'5'}
-        >
+      <div className="flex flex-col lg:flex-row">
+        <div className="w-full md:w-1/2 lg:w-[400px] rounded-xl overflow-hidden mb-5">
           <Image
             alt={meal?.strMeal}
             src={meal?.strMealThumb || ''}
@@ -45,58 +30,39 @@ const MealDetailData = ({ meal, isMealRandom }: Props) => {
             objectFit="contain"
             priority
           />
-        </Box>
+        </div>
 
-        <Box
-          padding={[0, '5']}
-          flexGrow="1"
-        >
-          <Heading
-            as={'h2'}
-            size="lg"
-            marginBottom="3"
-            textAlign={['center', 'left']}
-          >
+        <div className="p-0 lg:p-5 flex-grow">
+          <h2 className="text-3xl font-bold mb-3 text-center md:text-left">
             Ingredient
-          </Heading>
+          </h2>
 
-          <SimpleGrid
-            columns={[1, 3]}
-            spacing={[2, 5]}
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2 lg:gap-5">
             {meal?.ingredients.map((item, index) => (
-              <Box key={index}>{item}</Box>
+              <div key={index}>{item}</div>
             ))}
-          </SimpleGrid>
-        </Box>
-      </Box>
+          </div>
+        </div>
+      </div>
 
-      <Box marginTop="10">
-        <Heading
-          as={'h2'}
-          size="lg"
-          marginBottom="3"
-          textAlign={['center', 'left']}
-        >
+      <div className="mt-10">
+        <h2 className="text-3xl font-bold mb-3 text-center md:text-left">
           Instruction
-        </Heading>
+        </h2>
 
-        <Box lineHeight="tall">{meal?.strInstructions}</Box>
-      </Box>
+        <div className="leading-relaxed">{meal?.strInstructions}</div>
+      </div>
 
       <Link
         href={`/category/${meal?.strCategory}`}
         passHref
       >
         <Button
-          colorScheme="red"
+          className="my-5"
           as="a"
-          marginY="5"
           leftIcon={<HiArrowLeft />}
         >
-          {isMealRandom
-            ? `See other ${meal?.strCategory}`
-            : `Back to ${meal?.strCategory} Meal List`}
+          {`See other ${meal?.strCategory}`}
         </Button>
       </Link>
     </>

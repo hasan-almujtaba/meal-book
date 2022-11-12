@@ -6,10 +6,9 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { ChakraProvider } from '@chakra-ui/react'
-import theme from 'config/theme'
 import '@fontsource/poppins/400.css'
 import '@fontsource/poppins/700.css'
+import 'styles/globals.css'
 
 const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   /**
@@ -26,9 +25,7 @@ const App = ({ Component, pageProps }: AppPropsWithLayout) => {
   return (
     <QueryClientProvider client={queryClient}>
       <Hydrate state={pageProps.dehydratedState}>
-        <ChakraProvider theme={theme}>
-          {getLayout(<Component {...pageProps} />)}
-        </ChakraProvider>
+        {getLayout(<Component {...pageProps} />)}
       </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>

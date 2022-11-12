@@ -1,8 +1,7 @@
-import { Box } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
 import { useGetMeal } from '@/hooks/fetch'
-import MealDetailSkeleton from '../MealDetailSkeleton'
 import MealDetailData from '../MealDetailData'
+import SkeletonDetail from '../SkeletonDetail'
 
 interface Props {
   mealId?: string
@@ -29,17 +28,12 @@ const MealDetail = ({ mealId }: Props) => {
    * Content to render
    */
   const content = {
-    loading: <MealDetailSkeleton />,
+    loading: <SkeletonDetail />,
     error: null,
-    success: (
-      <MealDetailData
-        meal={data}
-        isMealRandom={mealId !== undefined}
-      />
-    ),
+    success: <MealDetailData meal={data} />,
   }
 
-  return <Box>{content[status]}</Box>
+  return <div>{content[status]}</div>
 }
 
 export default MealDetail

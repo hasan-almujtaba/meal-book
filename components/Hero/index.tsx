@@ -1,49 +1,38 @@
-import { Box, Button, Heading, Text } from '@chakra-ui/react'
 import Image from 'next/image'
 import Link from 'next/link'
+import Button from '../Base/Button'
 
 const Hero = () => {
   return (
-    <Box pt="20">
-      <Box textAlign="center">
+    <div className="pt-20">
+      <div className="text-center">
         <Image
           alt="Meal Book"
           src="/assets/abstract-fastfood.png"
           width="256"
           height="192"
         />
-      </Box>
-      <Heading
-        as="h1"
-        textAlign="center"
-        fontWeight="bold"
-      >
-        Meal Book
-      </Heading>
-      <Text
-        textAlign="center"
-        letterSpacing="widest"
-      >
-        Over 200+ recipes from around the world
-      </Text>
+      </div>
 
-      <Box
-        textAlign="center"
-        mt="4"
-      >
+      <h1 className="text-center font-bold text-4xl">Meal Book</h1>
+      <p className="text-center tracking-widest">
+        Over 200+ recipes from around the world
+      </p>
+
+      <div className="flex justify-center">
         <Link
           href="/random"
           passHref
         >
           <Button
             as="a"
-            colorScheme="red"
+            className="mt-4"
           >
             Random Recipe
           </Button>
         </Link>
-      </Box>
-    </Box>
+      </div>
+    </div>
   )
 }
 

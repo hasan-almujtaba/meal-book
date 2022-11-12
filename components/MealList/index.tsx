@@ -1,10 +1,10 @@
-import { Box, Button, Heading } from '@chakra-ui/react'
 import { useGetMealByFilter } from 'hooks/fetch'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import CardGroup from '../CardGroup'
-import CardGroupSkeleton from '../CardGroupSkeleton'
-import CardItem from '../CardItem'
+import { HiArrowLeft } from 'react-icons/hi'
+import Button from '../Base/Button'
+import Item from '../Item'
+import SkeletonList from '../SkeletonList'
 
 const MealList = () => {
   /**
@@ -24,50 +24,42 @@ const MealList = () => {
    * Content to render
    */
   const content = {
-    loading: <CardGroupSkeleton />,
+    loading: <SkeletonList />,
     error: null,
     success: (
-      <CardGroup>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {data?.map((item, index) => (
-          <CardItem
-            link="meal"
-            title={item.strMeal}
-            thumbnail={item.strMealThumb}
-            id={item.idMeal}
-            identifier="id"
+          <Item
             key={index}
+            name={item.strMeal}
+            link={`/meal/${item.idMeal}`}
+            image={item.strMealThumb}
           />
         ))}
-      </CardGroup>
+      </div>
     ),
   }
 
   return (
-    <Box py="20">
-      <Heading
-        textAlign="center"
-        mb="3"
-      >
-        {query.category}
-      </Heading>
+    <div className="py-20">
+      <h1 className="text-center text-4xl font-bold mb-5">{query.category}</h1>
 
-      <Box textAlign="center">
+      {content[status]}
+
+      <div className="text-center mt-5">
         <Link
           href="/"
           passHref
         >
           <Button
-            colorScheme="red"
-            variant="link"
             as="a"
+            leftIcon={<HiArrowLeft />}
           >
             Back to Categories
           </Button>
         </Link>
-      </Box>
-
-      {content[status]}
-    </Box>
+      </div>
+    </div>
   )
 }
 
