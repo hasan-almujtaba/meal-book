@@ -1,20 +1,16 @@
-import { getMeal } from '@/apis/index'
 import MealDetail from '@/components/MealDetail'
 import DefaultLayout from '@/layouts/DefaultLayout'
 import { NextPageWithLayout } from '@/types/layout'
-import { Meal } from '@/types/meal'
-import { GetServerSideProps } from 'next'
 import Head from 'next/head'
+import { useRouter } from 'next/router'
 
-interface Props {
-  meal: Meal
-}
+const MealDetailPage: NextPageWithLayout = () => {
+  const { query } = useRouter()
 
-const MealDetailPage: NextPageWithLayout<Props> = ({ meal }) => {
   return (
     <>
       <Head>
-        <title>{meal.strMeal}</title>
+        <title>{query.slug}</title>
       </Head>
       <MealDetail />
     </>
@@ -23,17 +19,6 @@ const MealDetailPage: NextPageWithLayout<Props> = ({ meal }) => {
 
 MealDetailPage.getLayout = (page) => {
   return <DefaultLayout>{page}</DefaultLayout>
-}
-
-export const getServerSideProps: GetServerSideProps = async ({ params }) => {
-  const mealId = params?.slug as string
-  const meal = await getMeal(mealId)
-
-  return {
-    props: {
-      meal: meal[0],
-    },
-  }
 }
 
 export default MealDetailPage

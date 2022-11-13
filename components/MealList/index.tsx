@@ -17,7 +17,7 @@ const MealList = () => {
    */
   const { data, status } = useGetMealByFilter({
     filter: 'c',
-    value: query.category as string,
+    value: query.slug as string,
   })
 
   /**

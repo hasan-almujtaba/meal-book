@@ -1,13 +1,9 @@
 import { useRouter } from 'next/router'
-import { useGetMeal } from '@/hooks/fetch'
+import { useGetMeal, useGetRandomMeal } from '@/hooks/fetch'
 import MealDetailData from '../MealDetailData'
 import SkeletonDetail from '../SkeletonDetail'
 
-interface Props {
-  mealId?: string
-}
-
-const MealDetail = ({ mealId }: Props) => {
+const MealDetail = () => {
   /**
    * Next router hooks
    */
@@ -22,7 +18,12 @@ const MealDetail = ({ mealId }: Props) => {
    * React query hook
    * Get meal detail based on active slug
    */
-  const { data, status } = useGetMeal(slug ?? mealId)
+  const meal = useGetMeal(slug, slug !== undefined)
+
+  /**
+   * Get random meal
+   */
+  const randomMeal = useGetRandomMeal()
 
   /**
    * Content to render
@@ -30,10 +31,10 @@ const MealDetail = ({ mealId }: Props) => {
   const content = {
     loading: <SkeletonDetail />,
     error: null,
-    success: <MealDetailData meal={data} />,
+    success: <MealDetailData meal={slug ? meal.data : randomMeal.data?.[0]} />,
   }
 
-  return <div>{content[status]}</div>
+  return <div>{content[slug ? meal.status : randomMeal.status]}</div>
 }
 
 export default MealDetail

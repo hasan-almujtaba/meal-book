@@ -11,7 +11,7 @@ const Category: NextPageWithLayout = () => {
   return (
     <>
       <Head>
-        <title>{query.category}</title>
+        <title>{query.slug}</title>
       </Head>
       <MealList />
     </>

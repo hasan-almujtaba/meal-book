@@ -33,10 +33,11 @@ export const useGetRandomMeal = () => {
  * @param id meal id
  * @returns meal details
  */
-export const useGetMeal = (id: string) => {
+export const useGetMeal = (id: string, enabled = true) => {
   const { meal: mealFormatter } = useFormatter()
 
   return useQuery(['meal', id], () => getMeal(id), {
+    enabled,
     select: (data) => data.map((meal) => mealFormatter(meal))[0],
   })
 }
